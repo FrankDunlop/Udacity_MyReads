@@ -5,11 +5,11 @@ import BookShelfChanger from './BookShelfChanger'
 
 const Book = props => {
     return (
-      <li>
+    <li>
         <div className="book">
             <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: props.book.cover }}></div>
-            < BookShelfChanger />
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: props.book.cover }}></div>
+                < BookShelfChanger />
             </div>
             <div className="book-title">{props.book.title}</div>
             <div className="book-authors">{props.book.authors}</div>
