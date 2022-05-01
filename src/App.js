@@ -3,8 +3,6 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 
-
-
 class BooksApp extends React.Component {
   state = {
     /**
@@ -29,7 +27,29 @@ class BooksApp extends React.Component {
     })
   }
 
+  onShelfChange = (bookId, shelf) => { 
+    //console.log(bookId)   
+    //console.log(shelf)
+    const newBookList = [...this.state.bookList];
+    const updatedBook = this.state.bookList.filter(book => book.id === bookId)
+    updatedBook[0].shelf = shelf;
+    newBookList[updatedBook.id] = updatedBook
+    this.setState({ bookList: newBookList })
+
+    this.SaveBook(updatedBook[0], shelf)
+  }
+
+  SaveBook = (updatedBook, shelf) => {
+    BooksAPI.update(updatedBook, shelf)
+    .then((bookList) => {
+        // this.setState(() => ({
+        //   bookList
+        console.log(bookList)
+      })
+  }
+
   render() {
+    //console.log(this.state.bookList)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -59,9 +79,9 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              < BookShelf title='Currently Reading' books={this.state.bookList.filter(book => book.shelf === 'currentlyReading')}/>  
-              < BookShelf title='Want To Read' books={this.state.bookList.filter(book => book.shelf === 'wantToRead')}/>
-              < BookShelf title='Read' books={this.state.bookList.filter(book => book.shelf === 'read')}/>
+              < BookShelf title='Currently Reading' books={this.state.bookList.filter(book => book.shelf === 'currentlyReading')} onShelfChange={this.onShelfChange}/>  
+              < BookShelf title='Want To Read' books={this.state.bookList.filter(book => book.shelf === 'wantToRead')} onShelfChange={this.onShelfChange}/>
+              < BookShelf title='Read' books={this.state.bookList.filter(book => book.shelf === 'read')} onShelfChange={this.onShelfChange}/>
             </div>
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
