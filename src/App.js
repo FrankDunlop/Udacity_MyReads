@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
+import BookList from './BookList'
 
 class BooksApp extends React.Component {
   state = {
@@ -11,10 +12,9 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
+    query: '',
     bookList: [],
+    searchResults: [],
     showSearchPage: false
   }
 
@@ -25,6 +25,27 @@ class BooksApp extends React.Component {
         bookList
       }))
     })
+  }
+
+  searchLibrary = (query) => {
+    this.setState(() => ({
+      query: query.trim()
+    }))
+
+    BooksAPI.search(this.state.query)
+    .then((searchResults) => {
+      this.setState(() => ({
+        searchResults
+      }))
+    })
+  }
+
+  addBookToLibrary = (bookId, shelf) => { 
+    const newBook = this.state.searchResults.filter(book => book.id === bookId)
+    newBook[0].shelf = shelf;
+    console.log(newBook) 
+    this.setState(prevState => ({ bookList: [...prevState.bookList, newBook] }))
+    this.SaveBook(newBook[0], shelf)
   }
 
   onShelfChange = (bookId, shelf) => { 
@@ -65,12 +86,13 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
-
+                <input type="text" placeholder="Search by title or author" onChange={(event) => this.searchLibrary(event.target.value)}/>
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+              < BookList books={this.state.searchResults} addBookToLibrary={this.addBookToLibrary}/> 
+              </ol>
             </div>
           </div>
         ) : (
@@ -84,7 +106,7 @@ class BooksApp extends React.Component {
               < BookShelf title='Read' books={this.state.bookList.filter(book => book.shelf === 'read')} onShelfChange={this.onShelfChange}/>
             </div>
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              <button onClick={() => this.setState({ showSearchPage: true })} >Add a book</button>
             </div>
           </div>
         )}
