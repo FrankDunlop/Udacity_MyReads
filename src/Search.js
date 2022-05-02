@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import BookList from './BookList';
+import SearchResults from './SearchResults';
 import * as BooksAPI from './BooksAPI'
 
 class Search extends Component {
@@ -22,17 +21,15 @@ class Search extends Component {
     }
 
     search = (query) => {
+        this.setState(() => ({
+            searchResults: []
+        }))
+
         if(query !== '')
         {
             BooksAPI.search(query)
             .then((searchResults) => {
-                if(searchResults.error)
-                {
-                    this.setState(() => ({
-                        searchResults: []
-                    }))
-                }
-                else
+                if(!searchResults.error)
                 {
                     this.setState(() => ({
                         searchResults
@@ -43,7 +40,6 @@ class Search extends Component {
       }
 
     render() {
-
         return(
         <div className="search-books">
             <div className="search-books-bar">
@@ -54,7 +50,7 @@ class Search extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                <BookList books={this.state.searchResults} addBookToLibrary={this.addBookToLibrary}/>
+                <SearchResults books={this.state.searchResults} addBookToLibrary={this.addBookToLibrary}/>
               </ol>
             </div>
           </div>
@@ -62,8 +58,4 @@ class Search extends Component {
     }
 }
 
-Search.propTypes = {
-  books: PropTypes.array.isRequired,
-}
-
-export default Search;
+export default Search

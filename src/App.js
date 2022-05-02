@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from './Search'
 import BookDisplay from './BookDisplay'
-import BookList from './BookList'
 
 class BooksApp extends React.Component {
   state = {
@@ -33,7 +31,7 @@ class BooksApp extends React.Component {
 
   addBookToLibrary = (newBook, shelf) => { 
     newBook.shelf = shelf
-    this.setState(prevState => ({ bookList: [...prevState.bookList, newBook], showSearchPage: false }))
+    this.setState(prevState => ({ bookList: [...prevState.bookList, newBook]}))
     this.SaveBook(newBook, shelf)
   }
 
@@ -57,7 +55,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (<Search onCloseSearch={this.onCloseSearch} addBookToLibrary={this.addBookToLibrary}/>) : (<BookDisplay bookList={this.state.bookList} onShelfChange={this.onShelfChange}/>)}
+        {this.state.showSearchPage ? (<Search bookList={this.state.bookList} onCloseSearch={this.onCloseSearch} addBookToLibrary={this.addBookToLibrary}/>) 
+        : (<BookDisplay bookList={this.state.bookList} onShelfChange={this.onShelfChange}/>)}
         <div className="open-search">
           <button onClick={() => this.setState({ showSearchPage: true })} >Add a book</button>
         </div>
@@ -65,10 +64,5 @@ class BooksApp extends React.Component {
     )
   }
 }
-
-BookList.propTypes = {
-  booklist: PropTypes.array.isRequired,
-  searchResults: PropTypes.array.isRequired
-};
 
 export default BooksApp

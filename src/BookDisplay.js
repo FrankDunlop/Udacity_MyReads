@@ -5,7 +5,7 @@ import BookShelf from './BookShelf';
 class BookDisplay extends Component {
 
     onShelfChange = (book, shelf) => {
-        this.props.onShelfChange(book, shelf);
+        this.props.onShelfChange(book, shelf)
     }
 
     render() {
@@ -27,7 +27,7 @@ class BookDisplay extends Component {
 }
 
 BookDisplay.propTypes = {
-    bookList: PropTypes.array.isRequired,
+    bookList: PropTypes.array.isRequired
 }
 
-export default BookDisplay;
+export default BookDisplay

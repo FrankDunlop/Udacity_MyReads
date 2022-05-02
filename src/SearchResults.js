@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Book from './Book';
 
-class BookList extends Component {
+class SearchResults extends Component {
 
     addBookToLibrary = (book, shelf) => {
         this.props.addBookToLibrary(book, shelf);
     }
 
+
     render() {
-        const { books } = this.props;
+        const { searchResults } = this.props;
 
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.title}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        { books.map(book => (
+                        { searchResults.map(book => (
                             <Book key={book.id} book={book} onShelfChange={this.addBookToLibrary} />
                         ))}
                     </ol>
@@ -26,8 +27,8 @@ class BookList extends Component {
     }
 }
 
-BookList.propTypes = {
-  books: PropTypes.array.isRequired,
+SearchResults.propTypes = {
+  books: PropTypes.array.isRequired
 }
 
-export default BookList;
+export default SearchResults;
