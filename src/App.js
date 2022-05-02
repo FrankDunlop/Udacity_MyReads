@@ -34,7 +34,6 @@ class BooksApp extends React.Component {
   addBookToLibrary = (newBook, shelf) => { 
     newBook.shelf = shelf
     this.setState(prevState => ({ bookList: [...prevState.bookList, newBook] }))
-    console.log(this.state.bookList)
     this.SaveBook(newBook, shelf)
   }
 

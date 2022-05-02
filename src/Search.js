@@ -22,13 +22,24 @@ class Search extends Component {
     }
 
     searchLibrary = (query) => {
-        BooksAPI.search(query.trim())
-        .then((searchResults) => {
-          console.log(searchResults) 
-          this.setState(() => ({
-            searchResults
-          }))
-        })
+        if(query !== '')
+        {
+            BooksAPI.search(query)
+            .then((searchResults) => {
+                if(searchResults.error)
+                {
+                    this.setState(() => ({
+                        searchResults: []
+                    }))
+                }
+                else
+                {
+                    this.setState(() => ({
+                        searchResults
+                    }))
+                }
+            })
+        }
       }
 
     render() {
@@ -46,7 +57,7 @@ class Search extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author" onChange={(event) => this.searchLibrary(event.target.value)}/>
+                <input type="text" placeholder="Search by title or author" onChange={(e) => this.searchLibrary(e.target.value)}/>
               </div>
             </div>
             <div className="search-books-results">

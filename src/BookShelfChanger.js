@@ -4,7 +4,7 @@ class BookShelfChanger extends Component {
 
     onShelfChange = shelf => {
         this.props.onShelfChange(shelf)
-    }
+    };
 
     render() {
         return (
