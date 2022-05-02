@@ -52,7 +52,6 @@ class BooksApp extends React.Component {
     .then((bookList) => {
         // this.setState(() => ({
         //   bookList
-        console.log(bookList)
       })
   }
 

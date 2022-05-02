@@ -5,7 +5,6 @@ import Book from './Book';
 class BookList extends Component {
 
     addBookToLibrary = (book, shelf) => {
-        console.log(book)
         this.props.addBookToLibrary(book, shelf);
     }
 
