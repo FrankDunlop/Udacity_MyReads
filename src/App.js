@@ -33,18 +33,17 @@ class BooksApp extends React.Component {
 
   addBookToLibrary = (newBook, shelf) => { 
     newBook.shelf = shelf
-    this.setState(prevState => ({ bookList: [...prevState.bookList, newBook] }))
+    this.setState(prevState => ({ bookList: [...prevState.bookList, newBook], showSearchPage: false }))
     this.SaveBook(newBook, shelf)
   }
 
   onShelfChange = (updateBook, shelf) => { 
     const newBookList = [...this.state.bookList];
-    const updatedBook = this.state.bookList.filter(book => book.id === updateBook.id)
-    updatedBook[0].shelf = shelf;
+    const updatedBook = this.state.bookList.filter(book => book.id === updateBook.id)[0]
+    updatedBook.shelf = shelf;
     newBookList[updatedBook.id] = updatedBook
     this.setState({ bookList: newBookList })
-
-    this.SaveBook(updatedBook[0], shelf)
+    this.SaveBook(updatedBook, shelf)
   }
 
   SaveBook = (book, shelf) => {
@@ -58,9 +57,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (<Search onCloseSearch={this.onCloseSearch} addBookToLibrary={this.addBookToLibrary}/>) 
-        : 
-        (<BookDisplay bookList={this.state.bookList} onShelfChange={this.onShelfChange}/>)}
+        {this.state.showSearchPage ? (<Search onCloseSearch={this.onCloseSearch} addBookToLibrary={this.addBookToLibrary}/>) : (<BookDisplay bookList={this.state.bookList} onShelfChange={this.onShelfChange}/>)}
         <div className="open-search">
           <button onClick={() => this.setState({ showSearchPage: true })} >Add a book</button>
         </div>
