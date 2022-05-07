@@ -30,26 +30,20 @@ class BooksApp extends React.Component {
   }
 
   addBookToLibrary = (newBook, shelf) => { 
-    newBook.shelf = shelf
-    this.setState(prevState => ({ bookList: [...prevState.bookList, newBook]}))
     this.SaveBook(newBook, shelf)
   }
 
   onShelfChange = (updateBook, shelf) => { 
-    const newBookList = [...this.state.bookList];
-    const updatedBook = this.state.bookList.filter(book => book.id === updateBook.id)[0]
-    updatedBook.shelf = shelf;
-    newBookList[updatedBook.id] = updatedBook
-    this.setState({ bookList: newBookList })
-    this.SaveBook(updatedBook, shelf)
+    this.SaveBook(updateBook, shelf)
   }
 
   SaveBook = (book, shelf) => {
     BooksAPI.update(book, shelf)
-    .then((bookList) => {
-        // this.setState(() => ({
-        //   bookList
+    .then(() => {
+      BooksAPI.getAll().then((bookList) => {
+        this.setState({ bookList })
       })
+    })
   }
 
   render() {

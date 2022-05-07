@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Book from './Book';
+import PropTypes from 'prop-types';
 
 class SearchResults extends Component {
 
@@ -8,18 +8,28 @@ class SearchResults extends Component {
         this.props.addBookToLibrary(book, shelf);
     }
 
+    checkBookInLibrary = (bookId) => {
+        var shelf = 'none'
+        this.props.bookList.forEach(book => {
+            if(book.id === bookId) {
+                shelf = book.shelf
+            }
+        })
+        return( shelf )
+    }
+
 
     render() {
-        const { searchResults } = this.props;
-
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.title}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        { searchResults.map(book => (
-                            <Book key={book.id} book={book} onShelfChange={this.addBookToLibrary} />
-                        ))}
+                    {
+                        this.props.searchResults && this.props.searchResults.map(book => 
+                            <Book key={book.id} book={book} shelf={this.checkBookInLibrary(book.id)} onShelfChange={this.addBookToLibrary} />
+                        )
+                    }
                     </ol>
                 </div>
             </div>
@@ -28,7 +38,8 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
-  books: PropTypes.array.isRequired
+    bookList: PropTypes.array.isRequired,
+    searchResults: PropTypes.array.isRequired
 }
 
 export default SearchResults;
