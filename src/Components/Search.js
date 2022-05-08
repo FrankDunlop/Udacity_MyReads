@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchResults from './SearchResults';
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from '../API/BooksAPI'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
