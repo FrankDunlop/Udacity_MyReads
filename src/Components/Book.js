@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 
 function Book (props){
 
+    const { book, shelf } = props;
+
     const onShelfChange = shelf => {
         props.onShelfChange(props.book, shelf);
     }
 
-    const { book, shelf } = props;
-
-    return (
-        
+    return ( 
         <li>
             <div className="book">
                 <div className="book-top">

@@ -4,11 +4,11 @@ import Book from './Book';
 
 function BookShelf(props){
 
+    const { books } = props;
+
     const onShelfChange = (book, shelf) => {
         props.onShelfChange(book, shelf);
     }
-
-    const { books } = props;
 
     return (
         <div className="bookshelf">

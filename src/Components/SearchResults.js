@@ -25,8 +25,7 @@ function SearchResults (props){
                 <ol className="books-grid">
                 {
                     props.searchResults && props.searchResults.map(book => 
-                        <Book key={book.id} book={book} shelf={checkBookInLibrary(book.id)} onShelfChange={onShelfChange} />
-                    )
+                        <Book key={book.id} book={book} shelf={checkBookInLibrary(book.id)} onShelfChange={onShelfChange} />)
                 }
                 </ol>
             </div>

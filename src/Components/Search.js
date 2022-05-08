@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 function Search(props){
 
+    const { bookList } = props;
     const [searchResults, setsearchResults] = useState([])
 
     const onShelfChange = (book, shelf) => {
@@ -27,8 +28,6 @@ function Search(props){
             )
         }
     }
-
-    const { bookList } = props;
 
     return(
         <div className="search-books">

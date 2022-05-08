@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 
 function BookDisplay(props){
 
+    const { bookList } = props
+
     const onShelfChange = (book, shelf) => {
         props.onShelfChange(book, shelf)
     }
-
-    const { bookList } = props
 
     return(
         <div className="list-books">
@@ -26,7 +26,6 @@ function BookDisplay(props){
             </div>
         </div>
     )
-    
 }
 
 BookDisplay.propTypes = {
