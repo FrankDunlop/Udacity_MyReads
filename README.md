@@ -3,12 +3,24 @@
 This is the Udacity React Nanodegree book tracking app project.
 This app allows you to mange your own personal book library, assigning a book to a specific shelf in your library.
 
-There are three shelves, Currently Reading, Want to Read and Read. 
+**Personal Library:**
+
+This is the main screen that displays all books in your personal library. There are three shelves, Currently Reading, Want to Read and Read. 
 A book can be moved between shelves by using the shelf changer icon displayed on the bottom right of the book. 
 Choosing 'none' from the shelf changer options will remove the book from your library.
 
-Selcting the search icon will allow you to do an API search which returns books based on the input search query. 
+![image](https://user-images.githubusercontent.com/1563903/167295232-635635fd-64d0-44b2-85ef-89ab4ba96ddc.png)
+
+
+**Searching for books:**
+
+Selcting the search icon (bottom right of the main screen) will allow you to do an API search which returns books based on the input search query. 
 The search results will be displayed with the shelf changer option which allows you to add the book to a shelf in your personal library.
+
+
+![image](https://user-images.githubusercontent.com/1563903/167295293-3aeb2406-2ded-4fb7-90ed-abe595fd9b30.png)
+
+
 
 # Design and Architecture
 
