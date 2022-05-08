@@ -7,7 +7,7 @@ class Book extends Component {
     onShelfChange = shelf => {
         this.props.onShelfChange(this.props.book, shelf);
     }
-    
+
     render() {
         const { book, shelf } = this.props;
 
@@ -20,7 +20,7 @@ class Book extends Component {
                         <BookShelfChanger shelf={shelf} onShelfChange={this.onShelfChange}/>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors}</div>
+                    <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
                 </div>
             </li>
         )
