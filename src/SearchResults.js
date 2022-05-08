@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 class SearchResults extends Component {
 
-    addBookToLibrary = (book, shelf) => {
-        this.props.addBookToLibrary(book, shelf);
+    onShelfChange = (book, shelf) => {
+        this.props.onShelfChange(book, shelf);
     }
 
     checkBookInLibrary = (bookId) => {
@@ -27,7 +27,7 @@ class SearchResults extends Component {
                     <ol className="books-grid">
                     {
                         this.props.searchResults && this.props.searchResults.map(book => 
-                            <Book key={book.id} book={book} shelf={this.checkBookInLibrary(book.id)} onShelfChange={this.addBookToLibrary} />
+                            <Book key={book.id} book={book} shelf={this.checkBookInLibrary(book.id)} onShelfChange={this.onShelfChange} />
                         )
                     }
                     </ol>
