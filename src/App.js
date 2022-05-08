@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Route, Routes} from 'react-router-dom'
 import * as BooksAPI from './API/BooksAPI'
 import './css/App.css'
@@ -6,39 +6,33 @@ import Search from './Components/Search'
 import BookDisplay from './Components/BookDisplay'
 
 
-class BooksApp extends Component {
-  state = {
-      bookList: []
-  }
+function BooksApp(){
+  const [bookList, setBooklist] = useState([])
 
-  componentDidMount() {
+  useEffect(() => {
       BooksAPI.getAll()
         .then((bookList) => {
-          this.setState(() => ({
-            bookList
-        }))
+          setBooklist(bookList)
       })
-  }
+  }, []);
 
-  onShelfChange = (book, shelf) => {
+  const onShelfChange = (book, shelf) => {
     BooksAPI.update(book, shelf)
       .then(() => {
         BooksAPI.getAll().then((bookList) => {
-            this.setState({ bookList })
+            setBooklist(bookList)
         })
     })
   }
 
-  render() {
-    return (
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<BookDisplay bookList={this.state.bookList} onShelfChange={this.onShelfChange}/>}/>
-          <Route path="/Search" element={<Search bookList={this.state.bookList} onCloseSearch={this.onCloseSearch} onShelfChange={this.onShelfChange}/>}/>
-        </Routes>
-      </div>
-    )
-  }
+  return (
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<BookDisplay bookList={bookList} onShelfChange={onShelfChange}/>}/>
+        <Route path="/Search" element={<Search bookList={bookList} onShelfChange={onShelfChange}/>}/>
+      </Routes>
+    </div>
+  )
 }
 
 export default BooksApp
