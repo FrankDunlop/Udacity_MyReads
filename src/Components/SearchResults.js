@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Book from './Book';
 import PropTypes from 'prop-types';
 
-class SearchResults extends Component {
+function SearchResults (props){
 
-    onShelfChange = (book, shelf) => {
-        this.props.onShelfChange(book, shelf);
+    const onShelfChange = (book, shelf) => {
+        props.onShelfChange(book, shelf);
     }
 
-    checkBookInLibrary = (bookId) => {
+    const checkBookInLibrary = (bookId) => {
         var shelf = 'none'
-        this.props.bookList.forEach(book => {
+        props.bookList.forEach(book => {
             if(book.id === bookId) {
                 shelf = book.shelf
             }
@@ -18,23 +18,20 @@ class SearchResults extends Component {
         return( shelf )
     }
 
-
-    render() {
-        return (
-            <div className="bookshelf">
-                <h2 className="bookshelf-title">{this.props.title}</h2>
-                <div className="bookshelf-books">
-                    <ol className="books-grid">
-                    {
-                        this.props.searchResults && this.props.searchResults.map(book => 
-                            <Book key={book.id} book={book} shelf={this.checkBookInLibrary(book.id)} onShelfChange={this.onShelfChange} />
-                        )
-                    }
-                    </ol>
-                </div>
+    return (
+        <div className="bookshelf">
+            <h2 className="bookshelf-title">{props.title}</h2>
+            <div className="bookshelf-books">
+                <ol className="books-grid">
+                {
+                    props.searchResults && props.searchResults.map(book => 
+                        <Book key={book.id} book={book} shelf={checkBookInLibrary(book.id)} onShelfChange={onShelfChange} />
+                    )
+                }
+                </ol>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 SearchResults.propTypes = {

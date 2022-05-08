@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class BookShelfChanger extends Component {
+function BookShelfChanger(props){
 
-    onShelfChange = shelf => {
-        this.props.onShelfChange(shelf)
+    const onShelfChange = shelf => {
+        props.onShelfChange(shelf)
     }
 
-    render() {
-        return (
-            <div className="book-shelf-changer">
-                <select value={this.props.shelf} onChange={(e) => this.onShelfChange(e.target.value)}>
-                    <option value="move" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading </option>
-                    <option value="wantToRead">Want to Read </option>
-                    <option value="read">Read </option>
-                    <option value="none">None </option>
-                </select>
-            </div>
-        )
-    }
+    return (
+        <div className="book-shelf-changer">
+            <select value={props.shelf} onChange={(e) => onShelfChange(e.target.value)}>
+                <option value="move" disabled>Move to...</option>
+                <option value="currentlyReading">Currently Reading </option>
+                <option value="wantToRead">Want to Read </option>
+                <option value="read">Read </option>
+                <option value="none">None </option>
+            </select>
+        </div>
+    )
+    
 }
 
 BookShelfChanger.propTypes = {
