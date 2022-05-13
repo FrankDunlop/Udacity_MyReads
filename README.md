@@ -1,6 +1,6 @@
 # MyReads Personal Book Tracker
 
-This is the Udacity React Nanodegree book tracking app project.
+Book tracking app.
 This app allows you to mange your own personal book library, assigning a book to a specific shelf in your library.
 
 **Personal Library:**
