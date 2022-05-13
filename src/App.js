@@ -17,12 +17,8 @@ function BooksApp(){
   }, []);
 
   const onShelfChange = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-      .then(() => {
-        BooksAPI.getAll().then((bookList) => {
-            setBooklist(bookList)
-        })
-    })
+    book.shelf = shelf
+    setBooklist(bookList.filter(b => b.id !== book.id).concat([ book ]))
   }
 
   return (
